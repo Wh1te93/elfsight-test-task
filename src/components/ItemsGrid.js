@@ -31,6 +31,7 @@ export function ItemsGrid() {
           key={props.id}
           onClickHandler={() => cardOnClickHandler(props)}
           {...props}
+          gender={props.gender?.toLowerCase()}
         />
       ))}
 

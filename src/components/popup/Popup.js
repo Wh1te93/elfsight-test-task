@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { PopupEpisodes } from './PopupEpisodes';
 import { PopupHeader } from './PopupHeader';
 import { PopupInfo } from './PopupInfo';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 export function Popup({ settings: { visible, content = {} }, setSettings }) {
   const {
@@ -16,6 +17,8 @@ export function Popup({ settings: { visible, content = {} }, setSettings }) {
     episode: episodes
   } = content;
 
+  const popupRef = useRef(null);
+
   function togglePopup(e) {
     if (e.currentTarget !== e.target) {
       return;
@@ -27,9 +30,56 @@ export function Popup({ settings: { visible, content = {} }, setSettings }) {
     }));
   }
 
+  function handleClickOutside(e) {
+    if (!popupRef.current.contains(e.target)) {
+      togglePopup(e);
+    }
+  }
+
+  function handleKeyUp(e) {
+    const keys = {
+      27: () => {
+        e.preventDefault();
+        setSettings((prevState) => ({
+          ...prevState,
+          visible: false
+        }));
+        window.removeEventListener('keyup', handleKeyUp, false);
+      }
+    };
+
+    if (keys[e.keyCode]) {
+      keys[e.keyCode]();
+    }
+  }
+
+  useEffect(() => {
+    if (visible) {
+      window.addEventListener('keyup', handleKeyUp, false);
+      document.body.style.overflow = 'hidden';
+      return () => {
+        window.removeEventListener('keyup', handleKeyUp, false);
+        document.body.style.removeProperty('overflow');
+        document.body.style.removeProperty('padding-right');
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
+
+  useLayoutEffect(() => {
+    if (visible) {
+      if (window.innerWidth && document.body.clientWidth) {
+        document.body.style.paddingRight =
+          document.body.scrollHeight !== window.innerHeight
+            ? `${window.innerWidth - document.body.clientWidth}px`
+            : '0';
+      }
+    }
+  }, [visible]);
+
   return (
-    <PopupContainer visible={visible}>
-      <StyledPopup>
+    <PopupContainer visible={visible} onClick={handleClickOutside}>
+      <StyledPopup ref={popupRef}>
         <CloseIcon onClick={togglePopup} />
 
         <PopupHeader
