@@ -1,10 +1,16 @@
 import axios from 'axios';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-const API_URL = 'https://rickandmortyapi.com/api/character/';
+const urlParams = new URLSearchParams(window.location.search);
+
+const page = urlParams.get('page');
+
+const API_URL = `https://rickandmortyapi.com/api/character/${
+  page ? `?page=${page}` : ''
+}`;
 
 export function DataProvider({ children }) {
-  const [activePage, setActivePage] = useState(0);
+  const [activePage, setActivePage] = useState(page ? page - 1 : 0);
   const [characters, setCharacters] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [isError, setIsError] = useState(false);

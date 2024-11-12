@@ -8,6 +8,9 @@ export function Pagination() {
 
   const pageClickHandler = (index) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    window.history.pushState(null, '', `?page=${index + 1}`);
+
     setActivePage(index);
     setApiURL(pages[index]);
   };
