@@ -4,15 +4,18 @@ import { useData } from './providers';
 
 export function Pagination() {
   const [pages, setPages] = useState([]);
-  const { apiURL, info, activePage, setActivePage, setApiURL } = useData();
+  const { apiURL, info, activePage, setActivePage } = useData();
 
   const pageClickHandler = (index) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    window.history.pushState(null, '', `?page=${index + 1}`);
+    const URLWithPage = new URL(window.location.href);
+
+    URLWithPage.searchParams.set('page', index + 1);
+
+    window.history.pushState(null, '', URLWithPage.href);
 
     setActivePage(index);
-    setApiURL(pages[index]);
   };
 
   useEffect(() => {
