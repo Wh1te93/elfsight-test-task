@@ -12,10 +12,10 @@ export function PopupInfo({ origin, location }) {
       )}
 
       {location?.name !== 'unknown' && (
-        <PopupLastLocation>
+        <PopupOrigin>
           <Text>Last known location:</Text>
-          <PopupLastLocationValue>{location?.name}</PopupLastLocationValue>
-        </PopupLastLocation>
+          <PopupOriginValue>{location?.name}</PopupOriginValue>
+        </PopupOrigin>
       )}
     </StyledPopupInfo>
   );
@@ -35,10 +35,6 @@ const PopupOrigin = styled.div`
   max-width: ${window.screen.width < 600 ? '100%' : '48%'};
 `;
 
-const PopupLastLocation = styled(PopupOrigin)``;
-
 const PopupOriginValue = styled.p`
   color: #83bf46;
 `;
-
-const PopupLastLocationValue = styled(PopupOriginValue)``;

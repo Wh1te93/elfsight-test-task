@@ -5,7 +5,7 @@ export function CardStatus({ status, species, type, className }) {
     <CardStatusContainer className={className}>
       <StyledCardStatus status={status}>{status}</StyledCardStatus>
       &nbsp;-&nbsp;
-      <CardSpecies>{species}</CardSpecies>
+      <span>{species}</span>
       {type && <CardType>{type}</CardType>}
     </CardStatusContainer>
   );
@@ -40,8 +40,6 @@ const StyledCardStatus = styled.span`
     }};
   }
 `;
-
-const CardSpecies = styled.span``;
 
 const CardType = styled.p`
   margin-top: 20px;

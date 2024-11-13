@@ -1,23 +1,25 @@
 import axios from 'axios';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-const urlParams = new URLSearchParams(window.location.search);
+const URL_PARAMS = new URLSearchParams(window.location.search);
 
-const page = urlParams.get('page');
+const PAGE_FROM_URL = URL_PARAMS.get('page');
 
-const filterFromUrl = {
-  name: urlParams.get('name'),
-  status: urlParams.get('status'),
-  species: urlParams.get('species'),
-  type: urlParams.get('type'),
-  gender: urlParams.get('gender')
+const FILTER_FROM_URL = {
+  name: URL_PARAMS.get('name'),
+  status: URL_PARAMS.get('status'),
+  species: URL_PARAMS.get('species'),
+  type: URL_PARAMS.get('type'),
+  gender: URL_PARAMS.get('gender')
 };
 
 const API_URL = 'https://rickandmortyapi.com/api/character';
 
 export function DataProvider({ children }) {
-  const [activePage, setActivePage] = useState(page ? page - 1 : 0);
-  const [filter, setFilter] = useState(filterFromUrl);
+  const [activePage, setActivePage] = useState(
+    PAGE_FROM_URL ? PAGE_FROM_URL - 1 : 0
+  );
+  const [filter, setFilter] = useState(FILTER_FROM_URL);
   const [characters, setCharacters] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [isError, setIsError] = useState(false);

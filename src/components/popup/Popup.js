@@ -125,10 +125,9 @@ const PopupContainer = styled.div`
 const StyledPopup = styled.div`
   position: relative;
   width: 40%;
-  margin: 0 auto;
+  margin: calc(10vh - 20px) auto 0 auto;
   height: auto;
   max-height: 90vh;
-  margin-top: calc(10vh - 20px);
   background: #263750;
   border-radius: 15px;
   padding: 20px 40px;

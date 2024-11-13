@@ -80,33 +80,6 @@ export function Filter() {
           onClick={() => {
             const URLWithPage = new URL(window.location.href);
 
-            URLWithPage.searchParams.set('page', 1);
-
-            URLWithPage.searchParams.set('name', name);
-            URLWithPage.searchParams.set('status', status);
-            URLWithPage.searchParams.set('species', species);
-            URLWithPage.searchParams.set('type', type);
-            URLWithPage.searchParams.set('gender', gender);
-
-            window.history.pushState(null, '', URLWithPage.href);
-            setActivePage(0);
-            setFilter({
-              name: name || null,
-              status: status || null,
-              species: species || null,
-              type: type || null,
-              gender: gender || null
-            });
-          }}
-        >
-          Show
-        </button>
-      </FilterButtonWrapper>
-      <FilterButtonWrapper>
-        <button
-          onClick={() => {
-            const URLWithPage = new URL(window.location.href);
-
             URLWithPage.searchParams.delete('page');
 
             URLWithPage.searchParams.delete('name');
@@ -133,6 +106,33 @@ export function Filter() {
           }}
         >
           Clear
+        </button>
+      </FilterButtonWrapper>
+      <FilterButtonWrapper>
+        <button
+          onClick={() => {
+            const URLWithPage = new URL(window.location.href);
+
+            URLWithPage.searchParams.set('page', 1);
+
+            URLWithPage.searchParams.set('name', name);
+            URLWithPage.searchParams.set('status', status);
+            URLWithPage.searchParams.set('species', species);
+            URLWithPage.searchParams.set('type', type);
+            URLWithPage.searchParams.set('gender', gender);
+
+            window.history.pushState(null, '', URLWithPage.href);
+            setActivePage(0);
+            setFilter({
+              name: name || null,
+              status: status || null,
+              species: species || null,
+              type: type || null,
+              gender: gender || null
+            });
+          }}
+        >
+          Show
         </button>
       </FilterButtonWrapper>
     </FilterContainer>
